@@ -120,9 +120,8 @@ button:active{transform:translateY(6px);box-shadow:0 2px 0 #4d0000}
 
 <script>
 const DATA = {"names": ["Anna", "Drew", "Paul", "Lauren", "Tim", "Ashley"], "entries": [{"s": "rswVvPCKRd2Q2QSHGXvs6Q==", "i": "isFFFy9JW1FocBVr", "c": "DZHGjT7Py8J4DEOgKeJ8tr3RwVTR9Obp40lN2Ok8RajjN/gsnAS78ktRAnaopMQYGI1lydc="}, {"s": "cOgBEk8glHVD9HcIKXJ1ew==", "i": "5ohQGNDNWDg6hSSu", "c": "O8oyQY7FGCX2vof8jC5zwqdvJgQZwBcC2foskGeXIYPvGSb6yWpsrD1NbkwPLBBd0T3cXvRMEQ=="}, {"s": "qWKD2TpePr4KopGAVYCw7w==", "i": "2K2Y1K0u0veP/0Vt", "c": "qwaKRW0eM0MqVcleyighNMeWswJb/nTXXRQRUN34vwnnzEGHXy2PsQZm41ihh9/j+tqWRJ2u7F0="}, {"s": "j3bQ2SUiSPBcl6gx1sL5rg==", "i": "wbLLD3y8jxtgWBw+", "c": "Q3h82XWknW5+bH7dZZtLl0zeZZ+3mertPLQ+XhySrWfiRv2v8WU8FRSsVqoPXmfhzcqQyaVnm0RGsDbs4gyTM9UqV6eic2kMKA=="}, {"s": "IHNZistqDVb7xNZ6NIqp0w==", "i": "rxjSTLBJLBlS8Psv", "c": "8ekd1salDfMyWUA1mZcmaRV7qStXxh+oLWg00QJ+vF3h1XuZM4mVgq/vCQczLDho8W/i3MGU"}, {"s": "uBZ99sH7Wap7G7VM8hXQfg==", "i": "MQOmjNGZ1en6Js2F", "c": "uuomnkBPNxeSDAPConqE/u1So7gwslc8uqDxNaE4trq5UMB3znTcUxF2zZydnwBHPuPw1qLsZ3E="}, {"s": "rXv6Ra18cC0V6X/W7xKh7A==", "i": "OqdhDBueonGCFgHb", "c": "rgmxz3PUwXVQ6v723emRaslPSnKhI1S/uw433uDjaBk1ohUQnL/70kBEc89CDQQ9TCXXbxT1UFY="}]};
-const APPLE=/iPhone|iPad|iPod|Macintosh|Mac OS X/.test(navigator.userAgent);
-// a right-moving team of reindeer pulling a sleigh, drawn the right way round on each platform
-const TEAM=k=>APPLE?'🛷'+'🦌'.repeat(k):'<span style="display:inline-block;transform:scaleX(-1)">'+'🦌'.repeat(k)+'🛷</span>';
+// reindeer emoji face left on Apple, Google and Windows; mirror the team so it pulls the sleigh to the right
+const TEAM=k=>'<span style="display:inline-block;transform:scaleX(-1)">'+'🦌'.repeat(k)+'🛷</span>';
 const EMOJI = ["🎄","🎅","🤶","🦌","⛄","🎁","🔔","❄️","🍪","🥛","🌟","🧦","🍬","🎀","🕯️","🧝"];
 
 /* ---------- lights ---------- */
