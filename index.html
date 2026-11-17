@@ -156,7 +156,7 @@ function flyer(){if(typeof drawing!=="undefined"&&drawing)return;const f=documen
 setInterval(flyer,7000);setTimeout(flyer,800);
 
 /* ---------- audio: synthesized sleigh bells + jingle bells ---------- */
-let AC=null,master=null,muted=false,songTimer=null;
+let AC=null,master=null,muted=false;
 function audioInit(){try{AC=new (window.AudioContext||window.webkitAudioContext)();master=AC.createGain();master.gain.value=.5;master.connect(AC.destination)}catch(e){AC=null}}
 function bell(t,vol=.25){
   if(!AC||muted)return;
@@ -175,19 +175,29 @@ const SONG=[["E",1],["E",1],["E",2],["E",1],["E",1],["E",2],["E",1],["G",1],["C"
   ["F",1],["F",1],["F",1.5],["F",.5],["F",1],["E",1],["E",1],["E",.5],["E",.5],["E",1],["D",1],["D",1],["E",1],["D",2],["G",2],
   ["E",1],["E",1],["E",2],["E",1],["E",1],["E",2],["E",1],["G",1],["C",1.5],["D",.5],["E",4],
   ["F",1],["F",1],["F",1.5],["F",.5],["F",1],["E",1],["E",1],["E",.5],["E",.5],["G",1],["G",1],["F",1],["D",1],["C",4]];
-function playSong(){
-  if(!AC)return;const beat=.27;let t=AC.currentTime+.1;
-  for(const [n,b] of SONG){note(N[n],t,b*beat);note(N[n]/2,t,b*beat,'triangle',.05);t+=b*beat}
-  const total=SONG.reduce((s,[,b])=>s+b,0)*beat;
-  for(let i=0;i<total/(beat*2);i++)for(let k=0;k<5;k++)bell(AC.currentTime+.1+i*beat*2+k*.035,.08);
-  songTimer=setTimeout(playSong,(total+2)*1000);
+const BEAT=.27, SONG_LEN=SONG.reduce((s,[,b])=>s+b,0)*BEAT;
+let nextSongAt=0;   // audio-clock time when the next verse may start
+function playSongAt(t0){
+  let t=t0;
+  for(const [n,b] of SONG){note(N[n],t,b*BEAT);note(N[n]/2,t,b*BEAT,'triangle',.05);t+=b*BEAT}
+  for(let i=0;i<SONG_LEN/(BEAT*2);i++)for(let k=0;k<5;k++)bell(t0+i*BEAT*2+k*.035,.08);
 }
+// The loop runs off the audio clock, which stops whenever the phone pauses audio
+// (background tab, sound not yet unlocked), so verses can never stack up.
+setInterval(()=>{
+  if(!AC||AC.state!=='running')return;
+  if(AC.currentTime>=nextSongAt-.5){
+    const t0=Math.max(nextSongAt,AC.currentTime+.1);
+    playSongAt(t0);nextSongAt=t0+SONG_LEN+2;
+  }
+},250);
 // browsers only allow sound after a tap/keypress, so the music starts on the first one
 function startAudio(){
-  if(AC)return;audioInit();if(!AC)return;if(AC.state==='suspended')AC.resume();
-  jingle(1.5);playSong();
+  if(!AC){audioInit();if(!AC)return;jingle(1.5)}
+  if(AC.state!=='running')AC.resume().catch(()=>{});
 }
-['pointerdown','keydown','touchstart'].forEach(ev=>addEventListener(ev,startAudio,{capture:true}));
+['pointerdown','touchend','click','keydown'].forEach(ev=>addEventListener(ev,startAudio,{capture:true}));
+document.addEventListener('visibilitychange',()=>{if(AC&&document.hidden)AC.suspend().catch(()=>{})});
 document.getElementById('mute').onclick=e=>{e.stopPropagation();muted=!muted;e.target.textContent=muted?'🔇':'🔊';if(master)master.gain.value=muted?0:.5};
 
 /* ---------- crypto: each passcode unlocks only its own sealed envelope ---------- */
