@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>🎅 THE GREAT SECRET SANTA DRAW 🎅</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Mountains+of+Christmas:wght@700&family=Luckiest+Guy&display=swap" rel="stylesheet">
+<style>
+:root{--red:#e3121b;--green:#0b8a3e;--gold:#ffd23f;--snow:#fff}
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%;overflow-x:hidden}
+body{
+  font-family:'Luckiest Guy',system-ui,sans-serif;color:#fff;letter-spacing:.5px;
+  background:repeating-linear-gradient(45deg,#b30000 0 40px,#fff 40px 52px,#0a6b30 52px 92px,#fff 92px 104px);
+  background-size:200% 200%;animation:candy 12s linear infinite;
+}
+@keyframes candy{to{background-position:300px 300px}}
+#snow{position:fixed;inset:0;pointer-events:none;z-index:50}
+/* light string */
+.lights{position:fixed;top:-8px;left:0;right:0;height:46px;display:flex;justify-content:space-around;z-index:60;pointer-events:none}
+.lights::before{content:"";position:absolute;top:12px;left:0;right:0;height:3px;background:#222;border-radius:3px}
+.bulb{position:relative;top:14px;width:14px;height:24px;border-radius:50% 50% 50% 50%/60% 60% 40% 40%;animation:flash 1s infinite}
+.bulb::before{content:"";position:absolute;top:-6px;left:3px;width:8px;height:7px;background:#333;border-radius:2px}
+.bulb:nth-child(4n+1){background:#ff2a2a;color:#ff2a2a}
+.bulb:nth-child(4n+2){background:#2aff6a;color:#2aff6a;animation-delay:.25s}
+.bulb:nth-child(4n+3){background:#ffd23f;color:#ffd23f;animation-delay:.5s}
+.bulb:nth-child(4n){background:#3ab4ff;color:#3ab4ff;animation-delay:.75s}
+@keyframes flash{0%,100%{opacity:1;box-shadow:0 4px 18px 4px currentColor}50%{opacity:.25;box-shadow:none}}
+.marquee{position:fixed;bottom:0;left:0;right:0;background:var(--green);border-top:5px dashed var(--gold);overflow:hidden;white-space:nowrap;z-index:40;font-size:20px;padding:6px 0}
+.marquee span{display:inline-block;padding-left:100%;animation:scroll 22s linear infinite}
+@keyframes scroll{to{transform:translateX(-100%)}}
+main{position:relative;z-index:10;max-width:680px;margin:0 auto;padding:70px 16px 80px;text-align:center}
+h1{font-family:'Mountains of Christmas',cursive;font-size:clamp(42px,11vw,84px);line-height:.95;margin:.2em 0;
+  -webkit-text-stroke:2px #fff;animation:rg 0.6s steps(1) infinite, wobble 2.4s ease-in-out infinite;text-shadow:0 0 20px #fff,4px 4px 0 #000}
+@keyframes rg{0%{color:var(--red)}50%{color:var(--green)}}
+@keyframes wobble{0%,100%{transform:rotate(-3deg) scale(1)}50%{transform:rotate(3deg) scale(1.06)}}
+.card{background:rgba(120,0,0,.92);border:8px solid var(--gold);border-radius:28px;padding:24px 18px;margin:18px auto;
+  box-shadow:0 0 0 8px var(--green),0 0 40px 14px rgba(255,210,63,.8);position:relative}
+.card::before,.card::after{content:"🎀";position:absolute;top:-34px;font-size:52px}
+.card::before{left:-18px;transform:rotate(-25deg)}.card::after{right:-18px;transform:rotate(25deg)}
+.sub{font-size:20px;color:var(--gold);text-shadow:2px 2px 0 #000}
+input{font-family:inherit;font-size:24px;width:100%;padding:14px;border-radius:16px;border:5px solid var(--green);text-align:center;text-transform:uppercase;color:var(--red);background:#fffbe8;margin:14px 0}
+button{font-family:inherit;font-size:clamp(22px,6vw,32px);color:#fff;background:linear-gradient(var(--red),#8d0000);border:5px solid var(--gold);border-radius:999px;padding:14px 26px;cursor:pointer;
+  box-shadow:0 8px 0 #4d0000,0 0 25px var(--gold);animation:pulse 1s infinite;text-shadow:2px 2px 0 #000}
+button:active{transform:translateY(6px);box-shadow:0 2px 0 #4d0000}
+@keyframes pulse{50%{transform:scale(1.07) rotate(-1deg)}}
+.err{color:#fff;background:#000;border-radius:10px;padding:8px;margin-top:12px;display:none;font-size:18px}
+.shake{animation:shake .5s}
+@keyframes shake{20%,60%{transform:translateX(-14px)}40%,80%{transform:translateX(14px)}}
+.slot{font-size:clamp(48px,15vw,96px);height:1.3em;line-height:1.3em;overflow:hidden;background:#fff;color:var(--green);border:8px dashed var(--red);border-radius:20px;margin:18px 0;text-shadow:3px 3px 0 var(--gold)}
+.reveal{font-family:'Mountains of Christmas',cursive;font-size:clamp(48px,14vw,130px);line-height:1;overflow-wrap:anywhere;color:var(--gold);-webkit-text-stroke:3px var(--red);animation:zoom .9s cubic-bezier(.2,1.8,.4,1) both, rg2 .4s steps(1) infinite}
+@keyframes zoom{from{transform:scale(0) rotate(-720deg)}to{transform:scale(1) rotate(0)}}
+@keyframes rg2{50%{-webkit-text-stroke-color:var(--green)}}
+.small{font-family:system-ui,sans-serif;font-size:14px;opacity:.9;letter-spacing:0}
+.hidden{display:none!important}
+.flyer{position:fixed;z-index:30;font-size:64px;pointer-events:none;white-space:nowrap;animation:fly 9s linear forwards}
+@keyframes fly{from{transform:translateX(-40vw)}to{transform:translateX(140vw)}}
+.pop{position:fixed;z-index:70;pointer-events:none;font-size:40px;animation:popup 1.4s ease-out forwards}
+@keyframes popup{0%{transform:scale(0) rotate(0);opacity:1}60%{transform:scale(1.6) rotate(20deg);opacity:1}100%{transform:scale(1) translateY(-120px) rotate(-20deg);opacity:0}}
+.mute{position:fixed;top:44px;right:10px;z-index:80;font-size:28px;padding:6px 12px;animation:none;box-shadow:0 4px 0 #4d0000}
+#stage{position:fixed;inset:0;z-index:65;pointer-events:none;transition:opacity .8s}
+#stage .sleigh{position:absolute;left:0;top:0;font-size:clamp(54px,14vw,90px);white-space:nowrap;filter:drop-shadow(0 0 14px #fff)}
+#stage .sleigh .santa{position:absolute;left:.08em;top:-.42em;font-size:.7em}
+#stage .bubble{position:absolute;left:.2em;top:-1.1em;font-size:.32em;background:#fff;color:var(--red);padding:2px 10px;border-radius:12px;border:3px solid var(--green)}
+.gift{position:absolute;left:0;top:0;width:var(--s);height:var(--s)}
+.gift .base{position:absolute;left:6%;right:6%;bottom:0;height:72%;border-radius:4px;
+  background:linear-gradient(90deg,transparent 42%,var(--gold) 42% 58%,transparent 58%),var(--c);box-shadow:inset -6px -6px 0 rgba(0,0,0,.25),0 6px 10px rgba(0,0,0,.5)}
+.gift .lid{position:absolute;left:0;right:0;top:12%;height:22%;border-radius:4px;
+  background:linear-gradient(90deg,transparent 42%,var(--gold) 42% 58%,transparent 58%),var(--c);filter:brightness(1.15);box-shadow:0 4px 0 rgba(0,0,0,.3)}
+.gift .lid::after{content:"🎀";position:absolute;left:50%;top:-80%;transform:translateX(-50%);font-size:calc(var(--s)*.42)}
+.gift .letter{position:absolute;left:0;right:0;bottom:10%;text-align:center;font-size:calc(var(--s)*.9);line-height:1;color:var(--gold);
+  -webkit-text-stroke:2px var(--red);text-shadow:0 0 18px #fff;opacity:0}
+.tree{font-size:46px;letter-spacing:6px}
+</style>
+</head>
+<body>
+<canvas id="snow"></canvas>
+<div class="lights" id="lights"></div>
+
+
+<button class="mute" id="mute" aria-label="Toggle sound">🔊</button>
+
+<main>
+  <div class="tree">🎄⛄🎁🦌🎄</div>
+  <h1>THE GREAT<br>SECRET SANTA<br>DRAW!!!</h1>
+  <div class="sub">Anna &amp; Drew • Paul &amp; Lauren • Tim &amp; Ashley</div>
+
+  <section class="card" id="login">
+    <div class="sub">🍪 ENTER YOUR TOP SECRET ELF PASSCODE 🍪</div>
+    <form id="form" autocomplete="off">
+      <input id="code" placeholder="SANTA-IS-WATCHING" autocapitalize="characters" spellcheck="false">
+      <button type="submit">🎁 LET ME IN 🎁</button>
+    </form>
+    <div class="err" id="err"></div>
+    <p class="small">Just looking? Try the passcode <b>DEMO</b>.</p>
+  </section>
+
+  <section class="card hidden" id="draw">
+    <div class="sub" id="hello"></div>
+    <div id="preDraw">
+      <p class="sub" style="color:#fff">Santa has your name in his sack.<br>Call him in and see what falls out of the sky!</p>
+      <button id="pull">🛷 SUMMON SANTA 🛷</button>
+    </div>
+    <p class="sub hidden" id="incoming" style="font-size:28px">👀 LOOK UP!!! 👀</p>
+    <div id="result" class="hidden">
+      <div class="sub" id="resultLabel">🎉 YOU ARE THE SECRET SANTA FOR 🎉</div>
+      <div class="reveal" id="who"></div>
+      <div class="sub" style="font-size:26px;color:#fff">🐺 MERRY CHRISTMAS, YA FILTHY ANIMAL! 🐺</div>
+      <div class="sub" id="secret">🤫 TELL NO ONE. NOT EVEN THE REINDEER. 🤫</div>
+      <p class="small">Log in again any time with your passcode and Santa will deliver this same name. The pairings were sealed before anyone logged in, so there's no redraw.</p>
+      <button id="again" style="font-size:20px;margin-top:10px">🛷 MAKE SANTA DO IT AGAIN 🛷</button>
+    </div>
+    <p><a href="#" id="logout" class="small" style="color:var(--gold)">← Lock the stocking (log out)</a></p>
+  </section>
+</main>
+
+<div id="stage"></div>
+<div class="marquee"><span>🔔 HO HO HO 🔔 JINGLE ALL THE WAY 🎄 CHECK YOUR LIST TWICE 🎁 NAUGHTY? NICE? WE'LL SEE 🦌 RUDOLPH IS WATCHING 🍪 LEAVE OUT COOKIES 🥛 AND MILK ⛄ DO YOU WANT TO BUILD A SNOWMAN? (DON'T ANSWER THAT) 🎅 KEEP THE CHANGE, YA FILTHY ANIMAL 💵 YOU'LL SHOOT YOUR EYE OUT, KID 🏆 IT'S A MAJOR AWARD! 🧝 SON OF A NUTCRACKER! 😁 SMILING'S MY FAVORITE 🔔 HO HO HO 🔔</span></div>
+
+<script>
+const DATA = {"names": ["Anna", "Drew", "Paul", "Lauren", "Tim", "Ashley"], "entries": [{"s": "rswVvPCKRd2Q2QSHGXvs6Q==", "i": "isFFFy9JW1FocBVr", "c": "DZHGjT7Py8J4DEOgKeJ8tr3RwVTR9Obp40lN2Ok8RajjN/gsnAS78ktRAnaopMQYGI1lydc="}, {"s": "cOgBEk8glHVD9HcIKXJ1ew==", "i": "5ohQGNDNWDg6hSSu", "c": "O8oyQY7FGCX2vof8jC5zwqdvJgQZwBcC2foskGeXIYPvGSb6yWpsrD1NbkwPLBBd0T3cXvRMEQ=="}, {"s": "qWKD2TpePr4KopGAVYCw7w==", "i": "2K2Y1K0u0veP/0Vt", "c": "qwaKRW0eM0MqVcleyighNMeWswJb/nTXXRQRUN34vwnnzEGHXy2PsQZm41ihh9/j+tqWRJ2u7F0="}, {"s": "j3bQ2SUiSPBcl6gx1sL5rg==", "i": "wbLLD3y8jxtgWBw+", "c": "Q3h82XWknW5+bH7dZZtLl0zeZZ+3mertPLQ+XhySrWfiRv2v8WU8FRSsVqoPXmfhzcqQyaVnm0RGsDbs4gyTM9UqV6eic2kMKA=="}, {"s": "IHNZistqDVb7xNZ6NIqp0w==", "i": "rxjSTLBJLBlS8Psv", "c": "8ekd1salDfMyWUA1mZcmaRV7qStXxh+oLWg00QJ+vF3h1XuZM4mVgq/vCQczLDho8W/i3MGU"}, {"s": "uBZ99sH7Wap7G7VM8hXQfg==", "i": "MQOmjNGZ1en6Js2F", "c": "uuomnkBPNxeSDAPConqE/u1So7gwslc8uqDxNaE4trq5UMB3znTcUxF2zZydnwBHPuPw1qLsZ3E="}, {"s": "rXv6Ra18cC0V6X/W7xKh7A==", "i": "OqdhDBueonGCFgHb", "c": "rgmxz3PUwXVQ6v723emRaslPSnKhI1S/uw433uDjaBk1ohUQnL/70kBEc89CDQQ9TCXXbxT1UFY="}]};
+const APPLE=/iPhone|iPad|iPod|Macintosh|Mac OS X/.test(navigator.userAgent);
+// a right-moving team of reindeer pulling a sleigh, drawn the right way round on each platform
+const TEAM=k=>APPLE?'🛷'+'🦌'.repeat(k):'<span style="display:inline-block;transform:scaleX(-1)">'+'🦌'.repeat(k)+'🛷</span>';
+const EMOJI = ["🎄","🎅","🤶","🦌","⛄","🎁","🔔","❄️","🍪","🥛","🌟","🧦","🍬","🎀","🕯️","🧝"];
+
+/* ---------- lights ---------- */
+const L=document.getElementById('lights');
+for(let i=0;i<Math.ceil(innerWidth/38);i++){const b=document.createElement('div');b.className='bulb';L.appendChild(b)}
+
+/* ---------- snow + confetti canvas ---------- */
+const cv=document.getElementById('snow'),cx=cv.getContext('2d');
+let W,H;const fit=()=>{W=cv.width=innerWidth;H=cv.height=innerHeight};fit();addEventListener('resize',fit);
+const mkFlake=()=>({x:Math.random()*W,y:Math.random()*-H,r:2+Math.random()*4,v:.6+Math.random()*1.6,d:Math.random()*6});
+let flakes=Array.from({length:140},mkFlake), confetti=[];
+const COLORS=['#e3121b','#0b8a3e','#ffd23f','#fff','#3ab4ff'];
+function burst(n=260){
+  for(let i=0;i<n;i++)confetti.push({x:W/2,y:H/2,vx:(Math.random()-.5)*22,vy:Math.random()*-22-4,s:6+Math.random()*8,c:COLORS[i%5],a:Math.random()*6,va:(Math.random()-.5)*.4,life:240});
+}
+(function frame(t){
+  cx.clearRect(0,0,W,H);cx.fillStyle='#fff';
+  for(const f of flakes){f.y+=f.v;f.x+=Math.sin(t/900+f.d)*.6;if(f.y>H)Object.assign(f,mkFlake(),{y:-10});cx.beginPath();cx.arc(f.x,f.y,f.r,0,7);cx.fill()}
+  confetti=confetti.filter(p=>p.life-->0);
+  for(const p of confetti){p.vy+=.45;p.vx*=.99;p.x+=p.vx;p.y+=p.vy;p.a+=p.va;cx.save();cx.translate(p.x,p.y);cx.rotate(p.a);cx.fillStyle=p.c;cx.fillRect(-p.s/2,-p.s/4,p.s,p.s/2);cx.restore()}
+  requestAnimationFrame(frame)
+})(0);
+
+/* ---------- emoji explosions ---------- */
+function pop(x,y,n=1){for(let i=0;i<n;i++){const e=document.createElement('div');e.className='pop';e.textContent=EMOJI[Math.random()*EMOJI.length|0];
+  e.style.left=(x+(Math.random()-.5)*(n>1?W*.8:40))+'px';e.style.top=(y+(Math.random()-.5)*(n>1?H*.6:40))+'px';document.body.appendChild(e);setTimeout(()=>e.remove(),1500)}}
+addEventListener('pointerdown',e=>{pop(e.clientX-20,e.clientY-20,3);jingle(.5)});
+
+/* ---------- flying santa ---------- */
+function flyer(){if(typeof drawing!=="undefined"&&drawing)return;const f=document.createElement('div');f.className='flyer';const msgs=['🎅'+TEAM(3)+' HO HO HO!','💨🎅 MERRY CHRISTMAS YA FILTHY ANIMALS','🏆 IT\'S A MAJOR AWARD! 🏆','🧝 SON OF A NUTCRACKER!!!','👁️ YOU\'LL SHOOT YOUR EYE OUT! 👁️'];f.innerHTML=msgs[Math.random()*msgs.length|0];
+  f.style.top=(10+Math.random()*60)+'vh';document.body.appendChild(f);setTimeout(()=>f.remove(),9500)}
+setInterval(flyer,7000);setTimeout(flyer,800);
+
+/* ---------- audio: synthesized sleigh bells + jingle bells ---------- */
+let AC=null,master=null,muted=false,songTimer=null;
+function audioInit(){try{AC=new (window.AudioContext||window.webkitAudioContext)();master=AC.createGain();master.gain.value=.5;master.connect(AC.destination)}catch(e){AC=null}}
+function bell(t,vol=.25){
+  if(!AC||muted)return;
+  const base=2400+Math.random()*1800;
+  [1,1.47,2.09,2.56,3.3].forEach((m,i)=>{
+    const o=AC.createOscillator(),g=AC.createGain();o.type='sine';o.frequency.value=base*m*(1+(Math.random()-.5)*.01);
+    g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(vol/(i+1),t+.003);g.gain.exponentialRampToValueAtTime(.0001,t+.18+Math.random()*.25);
+    o.connect(g);g.connect(master);o.start(t);o.stop(t+.5)});
+}
+function jingle(dur=1.2,density=26){if(!AC||muted)return;const t0=AC.currentTime;for(let i=0;i<dur*density;i++)bell(t0+i/density+Math.random()*.03,.12+Math.random()*.15)}
+function note(f,t,d,type='square',v=.07){if(!AC||muted)return;const o=AC.createOscillator(),g=AC.createGain();o.type=type;o.frequency.value=f;
+  g.gain.setValueAtTime(v,t);g.gain.exponentialRampToValueAtTime(.0001,t+d*.95);o.connect(g);g.connect(master);o.start(t);o.stop(t+d)}
+// "Jingle Bells" (James Lord Pierpont, 1857) chorus
+const N={C:523.25,D:587.33,E:659.25,F:698.46,G:783.99};
+const SONG=[["E",1],["E",1],["E",2],["E",1],["E",1],["E",2],["E",1],["G",1],["C",1.5],["D",.5],["E",4],
+  ["F",1],["F",1],["F",1.5],["F",.5],["F",1],["E",1],["E",1],["E",.5],["E",.5],["E",1],["D",1],["D",1],["E",1],["D",2],["G",2],
+  ["E",1],["E",1],["E",2],["E",1],["E",1],["E",2],["E",1],["G",1],["C",1.5],["D",.5],["E",4],
+  ["F",1],["F",1],["F",1.5],["F",.5],["F",1],["E",1],["E",1],["E",.5],["E",.5],["G",1],["G",1],["F",1],["D",1],["C",4]];
+function playSong(){
+  if(!AC)return;const beat=.27;let t=AC.currentTime+.1;
+  for(const [n,b] of SONG){note(N[n],t,b*beat);note(N[n]/2,t,b*beat,'triangle',.05);t+=b*beat}
+  const total=SONG.reduce((s,[,b])=>s+b,0)*beat;
+  for(let i=0;i<total/(beat*2);i++)for(let k=0;k<5;k++)bell(AC.currentTime+.1+i*beat*2+k*.035,.08);
+  songTimer=setTimeout(playSong,(total+2)*1000);
+}
+// browsers only allow sound after a tap/keypress, so the music starts on the first one
+function startAudio(){
+  if(AC)return;audioInit();if(!AC)return;if(AC.state==='suspended')AC.resume();
+  jingle(1.5);playSong();
+}
+['pointerdown','keydown','touchstart'].forEach(ev=>addEventListener(ev,startAudio,{capture:true}));
+document.getElementById('mute').onclick=e=>{e.stopPropagation();muted=!muted;e.target.textContent=muted?'🔇':'🔊';if(master)master.gain.value=muted?0:.5};
+
+/* ---------- crypto: each passcode unlocks only its own sealed envelope ---------- */
+const b64=s=>Uint8Array.from(atob(s),c=>c.charCodeAt(0));
+const norm=s=>s.toLowerCase().replace(/[^a-z0-9]/g,'');
+async function unlock(code){
+  const pw=new TextEncoder().encode(norm(code));
+  const base=await crypto.subtle.importKey('raw',pw,'PBKDF2',false,['deriveKey']);
+  for(const e of DATA.entries){
+    const key=await crypto.subtle.deriveKey({name:'PBKDF2',salt:b64(e.s),iterations:150000,hash:'SHA-256'},base,{name:'AES-GCM',length:256},false,['decrypt']);
+    try{const pt=await crypto.subtle.decrypt({name:'AES-GCM',iv:b64(e.i)},key,b64(e.c));return JSON.parse(new TextDecoder().decode(pt))}catch(_){}
+  }
+  return null;
+}
+
+/* ---------- flow ---------- */
+const $=id=>document.getElementById(id);
+let me=null;
+const store={get:k=>{try{return localStorage.getItem(k)}catch(_){return null}},set:(k,v)=>{try{localStorage.setItem(k,v)}catch(_){}}};
+const INSULTS=["❌ WRONG! COAL FOR YOU! ❌","🎄 SON OF A NUTCRACKER! WRONG CODE.","👁️ YOU'LL SHOOT YOUR EYE OUT, KID. WRONG CODE.","😤 OH, FUUUDGE. WRONG CODE.","💵 WRONG CODE. KEEP THE CHANGE, YA FILTHY ANIMAL.","🙅 THE ELVES DO NOT RECOGNIZE YOU","🚨 GRINCH DETECTED 🚨","🦌 RUDOLPH SAYS NOPE","⛄ FROSTY IS DISAPPOINTED"];
+$('form').onsubmit=async ev=>{
+  ev.preventDefault();const code=$('code').value;if(!norm(code))return;
+  $('err').style.display='block';$('err').textContent='🧝 Elves checking the list... twice...';
+  const r=await unlock(code);
+  if(!r){$('err').textContent=INSULTS[Math.random()*INSULTS.length|0];$('login').classList.remove('shake');void $('login').offsetWidth;$('login').classList.add('shake');return}
+  me=r;$('err').style.display='none';$('code').value='';
+  $('login').classList.add('hidden');$('draw').classList.remove('hidden');
+  $('hello').textContent=r.demo?'🧝 DEMO MODE: THIS IS A PRACTICE RUN, NOT A REAL DRAW 🧝':`🎄 WELCOME, ${r.giver.toUpperCase()}! 🎄`;
+  $('secret').textContent=r.demo?'🍝 (Demo only. Your real person is behind your own passcode.)':'🤫 TELL NO ONE. NOT EVEN THE REINDEER. 🤫';
+  jingle(1.5);pop(W/2,H/3,10);
+  $('preDraw').classList.remove('hidden');$('result').classList.add('hidden');$('incoming').classList.add('hidden');
+};
+
+/* ---------- the sleigh drop ---------- */
+const sleep=ms=>new Promise(r=>setTimeout(r,ms));
+const GIFT_COLORS=['#e3121b','#0b8a3e','#1f5fd6','#8e24aa','#e3121b','#0b8a3e'];
+let drawing=false;
+function thud(){if(!AC||muted)return;const t=AC.currentTime;note(110,t,.15,'sine',.25);bell(t+.02,.1)}
+function popSound(){if(!AC||muted)return;const t=AC.currentTime;note(880,t,.08,'square',.06);note(1320,t+.07,.12,'square',.06);bell(t+.05,.25)}
+async function santaDrop(){
+  if(drawing)return;drawing=true;
+  const stage=$('stage');stage.innerHTML='';stage.style.opacity=1;window.scrollTo({top:0,behavior:'smooth'});
+  const letters=[...me.recipient.toUpperCase()];
+  const n=letters.length, s=Math.min(84,(W-30)/n-6), gap=s+6;
+  const startX=(W-gap*n+6)/2, landY=Math.min(H*.66,H-s-70), skyY=Math.max(60,H*.12);
+  const slots=letters.map((_,i)=>startX+i*gap);
+
+  // sleigh
+  const sl=document.createElement('div');sl.className='sleigh';
+  sl.innerHTML=TEAM(3)+'<span class="santa">🎅</span><span class="bubble">HO HO HO!</span>';
+  stage.appendChild(sl);
+  const slW=sl.offsetWidth, x0=-slW-20, x1=W+40, dur=Math.max(3800,W*4.2);
+  jingle(dur/1000,22);
+
+  const gifts=[];let next=0;const t0=performance.now();
+  await new Promise(done=>{
+    (function fly(now){
+      const p=Math.min(1,(now-t0)/dur), x=x0+(x1-x0)*p, y=skyY+Math.sin(p*Math.PI*4)*18;
+      sl.style.transform=`translate(${x}px,${y}px) rotate(${Math.sin(p*Math.PI*8)*4}deg)`;
+      const rear=x+slW*.15;                       // presents fall off the back of the sleigh
+      while(next<n && rear>=slots[next]){gifts.push(dropGift(next,letters[next],rear,y+slW*.25,slots[next],landY,s));next++}
+      if(p<1)requestAnimationFrame(fly);else done();
+    })(t0);
+  });
+  sl.remove();
+  await Promise.all(gifts.map(g=>g.landed));
+  await sleep(500);
+
+  // open the boxes one at a time
+  for(const g of gifts){
+    g.el.querySelector('.lid').animate([{transform:'none',opacity:1},{transform:`translate(${(Math.random()-.5)*80}px,-${s*1.6}px) rotate(${(Math.random()-.5)*140}deg)`,opacity:0}],{duration:600,easing:'cubic-bezier(.2,.8,.4,1)',fill:'forwards'});
+    g.el.querySelector('.letter').animate([{opacity:0,transform:'scale(0)'},{opacity:1,transform:`translateY(-${s*.9}px) scale(1.5)`,offset:.6},{opacity:1,transform:`translateY(-${s*.55}px) scale(1.15)`}],{duration:650,easing:'ease-out',fill:'forwards'});
+    popSound();
+    const r=g.el.getBoundingClientRect();pop(r.left+r.width/2-20,r.top-30,1);
+    await sleep(Math.max(260,1400/n));
+  }
+  await sleep(900);
+  burst(380);jingle(3,30);pop(W/2,H/2,26);
+  await sleep(1400);
+  stage.style.opacity=0;await sleep(800);stage.innerHTML='';
+  showResult();drawing=false;
+}
+function dropGift(i,ch,x,y,tx,ty,s){
+  const el=document.createElement('div');el.className='gift';
+  el.style.setProperty('--s',s+'px');el.style.setProperty('--c',GIFT_COLORS[i%GIFT_COLORS.length]);
+  el.innerHTML=`<div class="base"></div><div class="letter">${ch}</div><div class="lid"></div>`;
+  $('stage').appendChild(el);
+  const spin=(Math.random()-.5)*60, fall=Math.max(900,(ty-y)*2.2);
+  const a=el.animate([
+    {transform:`translate(${x}px,${y}px) rotate(${spin}deg) scale(.6)`},
+    {transform:`translate(${tx}px,${ty}px) rotate(${-spin/6}deg) scale(1)`,offset:.78,easing:'ease-out'},
+    {transform:`translate(${tx}px,${ty-s*.25}px) rotate(${spin/10}deg) scale(1)`,offset:.89,easing:'ease-in'},
+    {transform:`translate(${tx}px,${ty}px) rotate(0) scale(1)`}
+  ],{duration:fall,easing:'cubic-bezier(.45,0,.9,.6)',fill:'forwards'});
+  setTimeout(thud,fall*.78);
+  return {el,landed:a.finished};
+}
+$('pull').onclick=()=>{$('preDraw').classList.add('hidden');$('result').classList.add('hidden');$('incoming').classList.remove('hidden');santaDrop().then(()=>$('incoming').classList.add('hidden'))};
+function showResult(){
+  $('result').classList.remove('hidden');
+  const w=$('who');w.textContent=me.recipient.toUpperCase()+'!!!';w.style.animation='none';void w.offsetWidth;w.style.animation='';
+  burst(200);pop(W/2,H/2,12);
+}
+$('again').onclick=()=>$('pull').onclick();
+$('logout').onclick=e=>{e.preventDefault();me=null;$('draw').classList.add('hidden');$('login').classList.remove('hidden')};
+</script>
+</body>
+</html>
